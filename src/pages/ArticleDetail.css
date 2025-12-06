@@ -1,0 +1,40 @@
+.article-detail {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 48px);
+}
+
+.article-detail h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-family: var(--font-display);
+  margin-bottom: 18px;
+}
+
+.article-detail .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 32px;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.article-detail .content {
+  line-height: 1.9;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 40px;
+}
+
+#comments-section {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid var(--color-border);
+}

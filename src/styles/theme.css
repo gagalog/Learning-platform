@@ -1,0 +1,54 @@
+:root {
+  /* 色彩系统 */
+  --color-bg-page: #f5f7fb;
+  --color-bg-hero: linear-gradient(120deg, #e0edff 0%, #f6faff 100%);
+  --color-surface: #ffffff;
+  --color-surface-muted: #f9fbff;
+  --color-border: #e4e9f2;
+  --color-border-strong: #d1d9e6;
+  --color-shadow: rgba(17, 24, 39, 0.08);
+  --color-shadow-strong: rgba(15, 23, 42, 0.15);
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-soft: #e0ecff;
+  --color-accent: #f97316;
+  --color-accent-hover: #ea580c;
+  --color-success: #16a34a;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+  --color-text-light: #94a3b8;
+
+  /* 字体与尺寸 */
+  --font-sans: 'Inter', 'HarmonyOS Sans SC', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-display: 'Poppins', 'Inter', 'Segoe UI', sans-serif;
+
+  --radius-full: 999px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+
+  --space-xs: clamp(4px, 0.8vw, 8px);
+  --space-sm: clamp(8px, 1vw, 12px);
+  --space-md: clamp(16px, 2vw, 20px);
+  --space-lg: clamp(24px, 3vw, 32px);
+  --space-xl: clamp(32px, 4vw, 48px);
+
+  --control-height: 48px;
+  --control-height-sm: 40px;
+  --control-padding-x: 16px;
+  --control-radius: var(--radius-sm);
+
+  --shadow-sm: 0 6px 20px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 15px 30px rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 30px 60px rgba(15, 23, 42, 0.1);
+
+  --transition-base: 220ms ease;
+
+  --layout-max-width: 1200px;
+  --layout-padding: clamp(16px, 4vw, 48px);
+  --layout-gap: clamp(20px, 4vw, 48px);
+}

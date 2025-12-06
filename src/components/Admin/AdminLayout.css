@@ -1,0 +1,157 @@
+/* 管理后台整体 */
+.admin-shell {
+	min-height: 100vh;
+	height: 100vh;
+	background: #f5f6fb;
+	overflow: hidden;
+}
+
+.admin-shell > .ant-layout {
+	height: 100vh;
+	overflow: hidden;
+}
+
+/* 侧边栏 */
+.admin-shell__sider {
+	background: #ffffff !important;
+	box-shadow: 8px 0 30px rgba(15, 23, 42, 0.04);
+	border-right: 1px solid rgba(15, 23, 42, 0.06);
+	position: sticky;
+	top: 0;
+	height: 100vh;
+	overflow-y: auto;
+}
+
+.admin-sider {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 24px 16px;
+}
+
+.admin-sider__brand {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 24px;
+}
+
+.admin-sider__logo {
+	font-size: 1.8rem;
+}
+
+.admin-sider__title {
+	margin: 0 !important;
+	color: #0f172a !important;
+}
+
+.admin-sider .ant-menu {
+	border-inline-end: none;
+	background: transparent;
+}
+
+.admin-sider .ant-menu-item {
+	border-radius: 10px;
+	margin: 4px 0;
+}
+
+.admin-sider__user {
+	margin-top: auto;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding-top: 16px;
+	border-top: 1px dashed rgba(15, 23, 42, 0.08);
+}
+
+.admin-sider__user-meta {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
+}
+
+.admin-sider__user-name {
+	color: #111827;
+}
+
+/* 顶部栏 */
+.admin-shell__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: #ffffff;
+	padding: 0 32px;
+	height: 72px;
+	box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+	position: sticky;
+	top: 0;
+	z-index: 90;
+}
+
+.admin-shell__header-left {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.admin-shell__title {
+	margin: 0 !important;
+	color: #0f172a !important;
+}
+
+.admin-shell__subtitle {
+	font-size: 0.85rem;
+}
+
+.admin-shell__header-right {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+/* 内容区域 */
+.admin-shell__content {
+	padding: 32px;
+	background: #f5f6fb;
+	height: calc(100vh - 72px);
+	overflow-y: auto;
+	position: relative;
+}
+
+.admin-shell__content-inner {
+	min-height: 100%;
+}
+
+/* 抽屉菜单 */
+.admin-shell__drawer .admin-sider {
+	padding: 24px;
+}
+
+/* 响应式 */
+@media (max-width: 992px) {
+	.admin-shell__content {
+		padding: 20px 16px 40px;
+		height: auto;
+		overflow: visible;
+	}
+
+	.admin-shell__header {
+		padding: 0 16px;
+	}
+
+	.admin-shell__sider {
+		position: static;
+		height: auto;
+		overflow: visible;
+	}
+}
+
+@media (max-width: 768px) {
+	.admin-shell__header-left {
+		gap: 12px;
+	}
+
+	.admin-shell__subtitle {
+		display: none;
+	}
+}

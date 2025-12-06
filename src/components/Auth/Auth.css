@@ -1,0 +1,103 @@
+.auth-container {
+  min-height: calc(100vh - 160px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl) var(--layout-padding);
+  background: radial-gradient(circle at top, rgba(37, 99, 235, 0.18), transparent 55%);
+}
+
+.auth-card {
+  width: min(420px, 100%);
+  padding: var(--space-xl) var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: var(--space-md);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  color: var(--color-text);
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.form-group input::placeholder {
+  color: var(--color-text-light);
+}
+
+.submit-btn {
+  width: 100%;
+  height: var(--control-height);
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: linear-gradient(120deg, #2563eb, #3b82f6);
+  color: #fff;
+  box-shadow: 0 18px 30px rgba(37, 99, 235, 0.25);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 22px 38px rgba(37, 99, 235, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: var(--space-md);
+  color: var(--color-text-muted);
+}
+
+.auth-links a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.test-credentials {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+  border: 1px dashed var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.test-credentials p {
+  margin: 4px 0;
+}

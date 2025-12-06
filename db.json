@@ -1,0 +1,220 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@test.com",
+      "password": "admin123",
+      "name": "管理员",
+      "role": "admin",
+      "createdAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "2",
+      "email": "user@test.com",
+      "password": "user123",
+      "name": "普通用户",
+      "role": "user",
+      "createdAt": "2024-01-02T00:00:00Z"
+    },
+    {
+      "id": "916c",
+      "name": "5",
+      "email": "5@qq.com",
+      "password": "555555",
+      "role": "user",
+      "createdAt": "2025-12-05T07:16:27.176Z"
+    },
+    {
+      "id": "e82a",
+      "name": "3",
+      "email": "3@qq.com",
+      "password": "333333",
+      "role": "user",
+      "createdAt": "2025-12-05T07:57:11.963Z"
+    }
+  ],
+  "articles": [
+    {
+      "id": "1",
+      "title": "React入门教程",
+      "content": "React是一个用于构建用户界面的JavaScript库，由Facebook开发并维护。它采用组件化开发模式，使得构建复杂的UI界面变得更加简单和高效。",
+      "description": "学习React基础知识，包括组件、状态和属性等概念。",
+      "thumbnail": "",
+      "publishedAt": "2025-12-05T07:15:10.493Z",
+      "clickCount": 164,
+      "tags": [
+        "React",
+        "JavaScript",
+        "前端"
+      ],
+      "keywords": [
+        "React",
+        "教程",
+        "入门"
+      ],
+      "authorId": 1,
+      "type": "article"
+    },
+    {
+      "id": "2",
+      "title": "JavaScript高级编程",
+      "content": "JavaScript是现代Web开发的核心语言。本文将深入探讨JavaScript的高级特性，包括闭包、原型链、异步编程等。",
+      "description": "深入了解JavaScript的高级特性和最佳实践。",
+      "thumbnail": "",
+      "publishedAt": "2024-01-20T14:30:00Z",
+      "clickCount": 92,
+      "tags": [
+        "JavaScript",
+        "编程"
+      ],
+      "keywords": [
+        "JavaScript",
+        "高级",
+        "编程"
+      ],
+      "authorId": 1,
+      "type": "article"
+    },
+    {
+      "id": "3",
+      "title": "CSS布局技巧",
+      "content": "CSS布局是前端开发中的重要技能。本文将介绍Flexbox、Grid等现代布局技术，以及常见的布局解决方案。",
+      "description": "掌握现代CSS布局技术，构建响应式网页。",
+      "thumbnail": "",
+      "publishedAt": "2024-01-25T09:15:00Z",
+      "clickCount": 48,
+      "tags": [
+        "CSS",
+        "布局",
+        "前端"
+      ],
+      "keywords": [
+        "CSS",
+        "布局",
+        "技巧"
+      ],
+      "authorId": 1,
+      "type": "article"
+    },
+    {
+      "id": "9388",
+      "title": "1",
+      "description": "1",
+      "content": "1",
+      "tags": [],
+      "thumbnail": "",
+      "keywords": [],
+      "publishedAt": "2025-12-05T06:52:17.119Z",
+      "clickCount": 4,
+      "commentCount": 0
+    },
+    {
+      "id": "c21d",
+      "title": "12",
+      "description": "12",
+      "content": "22",
+      "tags": [],
+      "thumbnail": "",
+      "keywords": [],
+      "publishedAt": "2025-12-05T07:17:08.708Z",
+      "clickCount": 3,
+      "commentCount": 0
+    }
+  ],
+  "videos": [
+    {
+      "id": "c5c6",
+      "title": "1",
+      "description": "",
+      "videoUrl": "https://www.bilibili.com/video/BV1nV411Q7RX?spm_id_from=333.788.recommend_more_video.0&trackid=web_related_0.router-related-2206419-45xsh.1764917456226.944&vd_source=843e9502bb1a46b33465870484d7ced8",
+      "duration": null,
+      "tags": [
+        "vue",
+        "前端"
+      ],
+      "thumbnail": null,
+      "keywords": [
+        "vue"
+      ],
+      "publishedAt": "2025-12-06T00:04:07.637Z",
+      "clickCount": 37,
+      "commentCount": 0
+    },
+    {
+      "id": "2e31",
+      "title": "《直接给我生成完整代码》",
+      "description": "",
+      "videoUrl": "https://www.bilibili.com/video/BV1hx2LBCEaY/?spm_id_from=333.1007.tianma.24-3-73.click&vd_source=843e9502bb1a46b33465870484d7ced8",
+      "duration": null,
+      "tags": [],
+      "thumbnail": null,
+      "keywords": [],
+      "publishedAt": "2025-12-05T23:56:30.349Z",
+      "clickCount": 7,
+      "commentCount": 0
+    }
+  ],
+  "comments": [
+    {
+      "id": "11f7",
+      "contentId": 1,
+      "contentType": "video",
+      "userId": 1,
+      "userName": "测试用户",
+      "userAvatar": "",
+      "content": "111",
+      "createdAt": "2025-12-04T15:57:43.949Z",
+      "likes": 10
+    },
+    {
+      "id": "7c3f",
+      "contentId": 1,
+      "contentType": "video",
+      "userId": "2",
+      "userName": "普通用户",
+      "userAvatar": "",
+      "content": "test",
+      "createdAt": "2025-12-04T16:15:29.994Z",
+      "likes": 0
+    },
+    {
+      "id": "57a8",
+      "contentId": 2,
+      "contentType": "article",
+      "userId": "1",
+      "userName": "管理员",
+      "userAvatar": "",
+      "content": "1",
+      "createdAt": "2025-12-05T21:21:29.300Z",
+      "likes": 0
+    },
+    {
+      "id": "ccca",
+      "contentId": null,
+      "contentType": "video",
+      "userId": "1",
+      "userName": "管理员",
+      "userAvatar": "",
+      "content": "测试",
+      "createdAt": "2025-12-06T00:06:38.483Z",
+      "likes": 0
+    }
+  ],
+  "userLikes": [
+    {
+      "id": "1",
+      "userId": 2,
+      "commentId": 1
+    },
+    {
+      "id": "2",
+      "userId": 3,
+      "commentId": 1
+    },
+    {
+      "id": "ca8e",
+      "userId": null,
+      "commentId": 2
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+/* App shell */
+.app-shell {
+	min-height: 100vh;
+	background: #f5f6fb;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Header */
+.app-shell__header {
+	display: flex;
+	align-items: center;
+	gap: 32px;
+	height: 72px;
+	padding: 0 40px;
+	background: #ffffff;
+	box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+	position: sticky;
+	top: 0;
+	z-index: 120;
+}
+
+.app-shell__brand-link {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	text-decoration: none;
+}
+
+.app-shell__logo {
+	font-size: 1.8rem;
+}
+
+.app-shell__brand-text {
+	margin: 0 !important;
+	color: #0f172a !important;
+	font-weight: 700 !important;
+}
+
+.app-shell__header .ant-menu {
+	flex: 1;
+	min-width: 0;
+	border-bottom: none;
+	background: transparent;
+}
+
+.app-shell__header .ant-menu-item {
+	font-weight: 600;
+	font-size: 15px;
+	padding: 0 24px;
+}
+
+.app-shell__header .ant-menu-item-selected::after {
+	border-bottom: 2px solid #1677ff;
+}
+
+.app-shell__actions {
+	margin-left: auto;
+}
+
+.app-shell__user {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.app-shell__user-meta {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
+}
+
+.app-shell__user-name {
+	font-weight: 600;
+	color: #111827;
+}
+
+/* Content */
+.app-shell__content {
+	flex: 1;
+	background: linear-gradient(180deg, #f5f7fb 0%, #ffffff 20%, #f5f7fb 100%);
+	padding: 24px 0 48px;
+}
+
+.app-shell__inner {
+	width: min(1200px, 100%);
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
+/* Footer */
+.app-shell__footer {
+	text-align: center;
+	background: transparent;
+	color: #6b7280;
+	font-size: 0.9rem;
+	padding: 24px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+	.app-shell__header {
+		flex-wrap: wrap;
+		height: auto;
+		padding: 12px 20px;
+		gap: 16px;
+	}
+
+	.app-shell__header .ant-menu {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.app-shell__actions {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 600px) {
+	.app-shell__inner {
+		padding: 0 16px;
+	}
+
+	.app-shell__header .ant-menu-item {
+		flex: 1;
+		text-align: center;
+	}
+
+	.app-shell__actions .ant-space {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.app-shell__actions .ant-btn {
+		flex: 1;
+	}
+}

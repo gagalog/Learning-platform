@@ -1,0 +1,17 @@
+.video-card__cover {
+  position: relative;
+}
+
+.video-card__badge {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+}
+
+.video-card__badge .ant-badge-count {
+  box-shadow: none;
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 0 10px;
+  border-radius: 999px;
+}
