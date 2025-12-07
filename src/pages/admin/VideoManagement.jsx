@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { api } from '../../services/api';
 import { Link } from 'react-router-dom';
 // 复用文章管理页面的样式
@@ -16,11 +16,7 @@ const VideoManagement = () => {
 
 	const itemsPerPage = 10;
 
-	useEffect(() => {
-		fetchVideos();
-	}, [currentPage, filterStatus, activeKeyword]);
-
-	const fetchVideos = async () => {
+	const fetchVideos = useCallback(async () => {
 		setLoading(true);
 		try {
 			const keyword = activeKeyword.trim();
@@ -47,7 +43,11 @@ const VideoManagement = () => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [activeKeyword, currentPage, filterStatus, itemsPerPage]);
+
+	useEffect(() => {
+		fetchVideos();
+	}, [fetchVideos]);
 
 	const handleSearch = () => {
 		setCurrentPage(1);
@@ -126,20 +126,6 @@ const VideoManagement = () => {
 			return `${diffDays}天前`;
 		} else {
 			return date.toLocaleDateString('zh-CN');
-		}
-	};
-
-	// 获取视频平台图标
-	const getVideoPlatformIcon = (videoUrl) => {
-		if (!videoUrl) return '📹';
-		if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
-			return '📺';
-		} else if (videoUrl.includes('vimeo.com')) {
-			return '🎬';
-		} else if (videoUrl.includes('bilibili.com')) {
-			return '🅱️';
-		} else {
-			return '📹';
 		}
 	};
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
-import ArticleCard from '../components/Content/ArticleCard';
-import VideoCard from '../components/Content/VideoCard';
+import { api } from '../../services/api';
+import ArticleCard from '../../components/Content/ArticleCard';
+import VideoCard from '../../components/Content/VideoCard';
 import './SearchResults.css';
 
 const SearchResults = () => {

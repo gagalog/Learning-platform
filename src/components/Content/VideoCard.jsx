@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Card, Tag, Typography, Space, Flex, Badge } from 'antd';
 import { Link } from 'react-router-dom';
 import {
@@ -8,6 +8,7 @@ import {
 	PlayCircleOutlined,
 } from '@ant-design/icons';
 import './VideoCard.css';
+import { getOptimizedImageUrl, buildResponsiveSrcSet } from '../../utils/imageUtils';
 
 const { Paragraph, Title, Text } = Typography;
 
@@ -29,13 +30,32 @@ const VideoCard = ({ video, onClick }) => {
 	const thumbnailInitial = video.title?.charAt(0)?.toUpperCase() || 'V';
 	const authorLabel = video.author || video.instructor || video.uploader || '';
 	const levelLabel = video.level || video.difficulty;
+	const optimizedThumbnail = getOptimizedImageUrl(video.thumbnailUrl, {
+		width: 480,
+		height: 270,
+		quality: 70,
+	});
+	const responsiveSrcSet = buildResponsiveSrcSet(video.thumbnailUrl, [
+		{ width: 320 },
+		{ width: 480 },
+		{ width: 720 },
+	]);
+	const thumbnailSrc = optimizedThumbnail || video.thumbnailUrl;
 
 	return (
 		<Link to={`/video/${video.id}`} className="content-card__link" onClick={onClick}>
 			<Card hoverable className="content-card">
 				<div className="content-card__cover video-card__cover">
-					{video.thumbnailUrl ? (
-						<img src={video.thumbnailUrl} alt={video.title} loading="lazy" />
+					{thumbnailSrc ? (
+						<img
+							src={thumbnailSrc}
+							srcSet={responsiveSrcSet || undefined}
+							sizes="(max-width: 768px) 100vw, 360px"
+							alt={video.title}
+							loading="lazy"
+							width={480}
+							height={270}
+						/>
 					) : (
 						<div className="content-card__placeholder">{thumbnailInitial}</div>
 					)}
@@ -84,4 +104,4 @@ const VideoCard = ({ video, onClick }) => {
 	);
 };
 
-export default VideoCard;
+export default memo(VideoCard);

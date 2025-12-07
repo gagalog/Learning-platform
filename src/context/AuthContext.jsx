@@ -18,14 +18,21 @@ export const AuthProvider = ({ children }) => {
 	// 因为 localStorage 是同步读取，所以这里立即认为已完成 hydration
 	const isAuthReady = true;
 
-	const login = (userData) => {
+	const persistUser = (userData) => {
 		setUser(userData);
 		localStorage.setItem('user', JSON.stringify(userData));
 	};
 
+	const login = (userData) => {
+		persistUser(userData);
+	};
+
 	const register = (userData) => {
-		setUser(userData);
-		localStorage.setItem('user', JSON.stringify(userData));
+		persistUser(userData);
+	};
+
+	const updateUser = (nextData) => {
+		persistUser(nextData);
 	};
 
 	const logout = () => {
@@ -43,6 +50,7 @@ export const AuthProvider = ({ children }) => {
 			login,
 			register,
 			logout,
+			updateUser,
 			isAdmin,
 			isAuthenticated: !!user,
 			isAuthReady

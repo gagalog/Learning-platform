@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
-import { api } from '../services/api';
+import { api } from '../../services/api';
 import './VideoDetail.css';
-import CommentSection from '../components/Content/CommentSection';
+import CommentSection from '../../components/Content/CommentSection';
+import { getOptimizedImageUrl } from '../../utils/imageUtils';
 
 const VideoDetail = () => {
 	const { id } = useParams();
@@ -26,6 +27,11 @@ const VideoDetail = () => {
 
 		return null;
 	}, [video?.videoUrl]);
+
+	const posterUrl = useMemo(() => {
+		if (!video?.thumbnailUrl) return null;
+		return getOptimizedImageUrl(video.thumbnailUrl, { width: 960, height: 540, quality: 75 });
+	}, [video?.thumbnailUrl]);
 
 	useEffect(() => {
 		const fetchVideo = async () => {
@@ -77,7 +83,7 @@ const VideoDetail = () => {
 								config={{
 									file: {
 										attributes: {
-											poster: video.thumbnailUrl || undefined
+											poster: posterUrl || video.thumbnailUrl || undefined
 										}
 									}
 								}}

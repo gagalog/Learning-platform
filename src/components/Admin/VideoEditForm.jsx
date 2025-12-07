@@ -1,26 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ReactPlayer from 'react-player';
 import { api } from '../../services/api';
 import './ContentEditForm.css';
-
-const buildBilibiliEmbedUrl = (url = '') => {
-	const match = url.match(/bilibili\.com\/video\/([A-Za-z0-9]+)/i);
-	if (match && match[1]) {
-		return `https://player.bilibili.com/player.html?bvid=${match[1]}&autoplay=0`;
-	}
-	return null;
-};
-
-const detectVideoPlatform = (url = '') => {
-	if (!url) return '在线视频';
-	if (url.includes('youtube') || url.includes('youtu.be')) return 'YouTube';
-	if (url.includes('vimeo')) return 'Vimeo';
-	if (url.includes('bilibili')) return 'Bilibili';
-	if (url.includes('dailymotion')) return 'Dailymotion';
-	if (url.includes('qq.com') || url.includes('腾讯')) return '腾讯视频';
-	return '在线视频';
-};
 
 const VideoEditForm = ({ mode = 'create' }) => {
 	const { id } = useParams();
@@ -41,10 +22,7 @@ const VideoEditForm = ({ mode = 'create' }) => {
 	const [videoPreview, setVideoPreview] = useState({
 		isValid: false,
 		loading: false,
-		error: '',
-		platform: '',
-		canReactPlayer: false,
-		embedUrl: ''
+		error: ''
 	});
 
 	const [loading, setLoading] = useState(false);
@@ -53,30 +31,7 @@ const VideoEditForm = ({ mode = 'create' }) => {
 	const [success, setSuccess] = useState('');
 	const [errors, setErrors] = useState({});
 
-	// 如果是编辑模式，加载现有数据
-	useEffect(() => {
-		if (mode === 'edit' && id) {
-			loadVideo();
-		}
-	}, [mode, id]);
-
-	// 当视频URL变化时验证
-	useEffect(() => {
-		if (formData.videoUrl.trim()) {
-			validateVideoUrl(formData.videoUrl.trim());
-		} else {
-			setVideoPreview({
-				isValid: false,
-				loading: false,
-				error: '',
-				platform: '',
-				canReactPlayer: false,
-				embedUrl: ''
-			});
-		}
-	}, [formData.videoUrl]);
-
-	const loadVideo = async () => {
+	const loadVideo = useCallback(async () => {
 		setLoading(true);
 		try {
 			const video = await api.getVideo(id);
@@ -95,48 +50,71 @@ const VideoEditForm = ({ mode = 'create' }) => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [id]);
+
+	// 如果是编辑模式，加载现有数据
+	useEffect(() => {
+		if (mode === 'edit' && id) {
+			loadVideo();
+		}
+	}, [mode, id, loadVideo]);
+
+	// 当视频URL变化时验证
+	useEffect(() => {
+		if (formData.videoUrl.trim()) {
+			validateVideoUrl(formData.videoUrl);
+		} else {
+			setVideoPreview({
+				isValid: false,
+				loading: false,
+				error: ''
+			});
+		}
+	}, [formData.videoUrl]);
+
 
 	// 验证视频URL（简单验证）
 	const validateVideoUrl = (url) => {
 		setVideoPreview(prev => ({ ...prev, loading: true, error: '' }));
 
+		// 简单的URL验证
 		const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/i;
+
 		if (!urlPattern.test(url)) {
 			setVideoPreview({
 				isValid: false,
 				loading: false,
-				error: '视频URL格式不正确',
-				platform: '',
-				canReactPlayer: false,
-				embedUrl: ''
+				error: '视频URL格式不正确'
 			});
 			return;
 		}
 
-		const canReactPlayerPlay = ReactPlayer.canPlay(url);
-		const bilibiliEmbedUrl = buildBilibiliEmbedUrl(url);
+		// 检查是否为常见视频平台
+		const platforms = {
+			'youtube.com': 'YouTube',
+			'youtu.be': 'YouTube',
+			'vimeo.com': 'Vimeo',
+			'bilibili.com': 'Bilibili',
+			'dailymotion.com': 'Dailymotion'
+		};
 
-		if (!canReactPlayerPlay && !bilibiliEmbedUrl) {
+		let platform = '未知平台';
+		for (const [domain, name] of Object.entries(platforms)) {
+			if (url.includes(domain)) {
+				platform = name;
+				break;
+			}
+		}
+
+		// 模拟加载完成
+		setTimeout(() => {
 			setVideoPreview({
-				isValid: false,
+				isValid: true,
 				loading: false,
-				error: '暂不支持该视频链接，请使用 YouTube/Vimeo/Bilibili 等平台地址',
-				platform: '',
-				canReactPlayer: false,
-				embedUrl: ''
+				error: '',
+				platform
 			});
-			return;
-		}
-
-		setVideoPreview({
-			isValid: true,
-			loading: false,
-			error: '',
-			platform: detectVideoPlatform(url),
-			canReactPlayer: canReactPlayerPlay,
-			embedUrl: bilibiliEmbedUrl || ''
-		});
+		}, 800);
 	};
 
 	// 处理输入变化
@@ -251,12 +229,11 @@ const VideoEditForm = ({ mode = 'create' }) => {
 				publishedAt: new Date().toISOString()
 			};
 
-			let result;
 			if (mode === 'create') {
-				result = await api.createVideo(submissionData);
+				await api.createVideo(submissionData);
 				setSuccess('视频创建成功！');
 			} else {
-				result = await api.updateVideo(id, submissionData);
+				await api.updateVideo(id, submissionData);
 				setSuccess('视频更新成功！');
 			}
 
@@ -307,29 +284,11 @@ const VideoEditForm = ({ mode = 'create' }) => {
 					<div className="preview-info">
 						<p className="preview-platform">检测到: {videoPreview.platform} 视频</p>
 						<p className="preview-url">{formData.videoUrl}</p>
-					</div>
-					<div className="preview-player">
-						{videoPreview.canReactPlayer ? (
-							<ReactPlayer
-								url={formData.videoUrl}
-								controls
-								width="100%"
-								height="100%"
-							/>
-						) : videoPreview.embedUrl ? (
-							<iframe
-								src={videoPreview.embedUrl}
-								title="视频预览"
-								frameBorder="0"
-								allow="autoplay; fullscreen"
-								allowFullScreen
-							></iframe>
-						) : (
-							<div className="preview-player-placeholder">
-								<div className="player-icon">📹</div>
-								<p>该链接暂不支持预览</p>
-							</div>
-						)}
+						<div className="preview-player-placeholder">
+							<div className="player-icon">▶️</div>
+							<p>视频预览</p>
+							<small>发布后用户可在此观看视频</small>
+						</div>
 					</div>
 				</div>
 			);

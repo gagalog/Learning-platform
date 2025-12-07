@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../services/api';
 import './ContentEditForm.css';
@@ -25,14 +25,7 @@ const ArticleEditForm = ({ mode = 'create' }) => {
 	// 表单验证错误
 	const [errors, setErrors] = useState({});
 
-	// 如果是编辑模式，加载现有数据
-	useEffect(() => {
-		if (mode === 'edit' && id) {
-			loadArticle();
-		}
-	}, [mode, id]);
-
-	const loadArticle = async () => {
+	const loadArticle = useCallback(async () => {
 		setLoading(true);
 		try {
 			const article = await api.getArticle(id);
@@ -50,7 +43,14 @@ const ArticleEditForm = ({ mode = 'create' }) => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [id]);
+
+	// 如果是编辑模式，加载现有数据
+	useEffect(() => {
+		if (mode === 'edit' && id) {
+			loadArticle();
+		}
+	}, [mode, id, loadArticle]);
 
 	// 处理输入变化
 	const handleChange = (e) => {
@@ -138,12 +138,11 @@ const ArticleEditForm = ({ mode = 'create' }) => {
 				publishedAt: new Date().toISOString()
 			};
 
-			let result;
 			if (mode === 'create') {
-				result = await api.createArticle(submissionData);
+				await api.createArticle(submissionData);
 				setSuccess('文章创建成功！');
 			} else {
-				result = await api.updateArticle(id, submissionData);
+				await api.updateArticle(id, submissionData);
 				setSuccess('文章更新成功！');
 			}
 

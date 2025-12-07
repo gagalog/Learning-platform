@@ -7,7 +7,6 @@ import './index.css';
 import './styles/theme.css';
 import './styles/global.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { themeConfig } from './theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,7 +20,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// 已移除默认的 web vitals 上报，如需监控可在此集成自定义方案

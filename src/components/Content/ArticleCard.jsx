@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Card, Tag, Typography, Space, Flex } from 'antd';
 import { Link } from 'react-router-dom';
 import { CalendarOutlined, EyeOutlined } from '@ant-design/icons';
+import { getOptimizedImageUrl, buildResponsiveSrcSet } from '../../utils/imageUtils';
 import './ArticleCard.css';
 
 const { Paragraph, Title, Text } = Typography;
@@ -21,13 +22,32 @@ const formatDate = (value) => {
 
 const ArticleCard = ({ article, onClick }) => {
 	const coverInitial = article.title?.charAt(0)?.toUpperCase() || 'A';
+	const optimizedCover = getOptimizedImageUrl(article.thumbnail, {
+		width: 480,
+		height: 270,
+		quality: 70,
+	});
+	const responsiveSrcSet = buildResponsiveSrcSet(article.thumbnail, [
+		{ width: 320 },
+		{ width: 480 },
+		{ width: 640 },
+	]);
+	const coverSrc = optimizedCover || article.thumbnail;
 
 	return (
 		<Link to={`/article/${article.id}`} className="content-card__link" onClick={onClick}>
 			<Card hoverable className="content-card">
 				<div className="content-card__cover">
-					{article.thumbnail ? (
-						<img src={article.thumbnail} alt={article.title} loading="lazy" />
+					{coverSrc ? (
+						<img
+							src={coverSrc}
+							srcSet={responsiveSrcSet || undefined}
+							sizes="(max-width: 768px) 100vw, 360px"
+							alt={article.title}
+							loading="lazy"
+							width={480}
+							height={270}
+						/>
 					) : (
 						<div className="content-card__placeholder">{coverInitial}</div>
 					)}
@@ -62,4 +82,4 @@ const ArticleCard = ({ article, onClick }) => {
 	);
 };
 
-export default ArticleCard;
+export default memo(ArticleCard);

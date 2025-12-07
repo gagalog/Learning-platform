@@ -6,7 +6,6 @@ import {
 	Button,
 	Avatar,
 	Typography,
-	Space,
 	Tag,
 	Grid,
 	Drawer,

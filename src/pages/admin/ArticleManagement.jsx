@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { api } from '../../services/api';
 import { Link } from 'react-router-dom';
 import './AdminStyles.css';
@@ -15,11 +15,7 @@ const ArticleManagement = () => {
 
 	const itemsPerPage = 10;
 
-	useEffect(() => {
-		fetchArticles();
-	}, [currentPage, filterStatus, activeKeyword]);
-
-	const fetchArticles = async () => {
+	const fetchArticles = useCallback(async () => {
 		setLoading(true);
 		try {
 			const keyword = activeKeyword.trim();
@@ -45,7 +41,11 @@ const ArticleManagement = () => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [activeKeyword, currentPage, filterStatus, itemsPerPage]);
+
+	useEffect(() => {
+		fetchArticles();
+	}, [fetchArticles]);
 
 	const handleSearch = () => {
 		setCurrentPage(1);

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
-import ArticleCard from '../components/Content/ArticleCard';
-import VideoCard from '../components/Content/VideoCard';
+import { api } from '../../services/api';
+import ArticleCard from '../../components/Content/ArticleCard';
+import VideoCard from '../../components/Content/VideoCard';
 import './Home.css';
 
 const Home = ({ filter }) => {
@@ -12,11 +12,7 @@ const Home = ({ filter }) => {
 	const [searchQuery, setSearchQuery] = useState('');
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		fetchContent();
-	}, []);
-
-	const fetchContent = async () => {
+	const fetchContent = useCallback(async () => {
 		setLoading(true);
 		try {
 			const allContent = await api.getHomeContent();
@@ -37,7 +33,11 @@ const Home = ({ filter }) => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, []);
+
+	useEffect(() => {
+		fetchContent();
+	}, [fetchContent]);
 
 	const handleSearch = (e) => {
 		e.preventDefault();

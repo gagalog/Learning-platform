@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { api } from '../../services/api';
 import { Link } from 'react-router-dom';
 import './AdminStyles.css';
@@ -14,11 +14,7 @@ const UserManagement = () => {
 	const [form, setForm] = useState({ name: '', email: '', password: '', role: 'user' });
 	const itemsPerPage = 20;
 
-	useEffect(() => {
-		fetchUsers();
-	}, [currentPage]);
-
-	const fetchUsers = async () => {
+	const fetchUsers = useCallback(async () => {
 		setLoading(true);
 		try {
 			const res = await api.getAllUsers(currentPage, itemsPerPage);
@@ -29,7 +25,11 @@ const UserManagement = () => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [currentPage, itemsPerPage]);
+
+	useEffect(() => {
+		fetchUsers();
+	}, [fetchUsers]);
 
 	const handleInput = (e) => {
 		const { name, value } = e.target;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
 	Card,
@@ -36,11 +36,7 @@ const CommentSection = ({ contentType, contentId }) => {
 	const [submitting, setSubmitting] = useState(false);
 	const [likesStatus, setLikesStatus] = useState({});
 
-	useEffect(() => {
-		fetchComments();
-	}, [contentType, contentId]);
-
-	const fetchComments = async () => {
+	const fetchComments = useCallback(async () => {
 		setLoading(true);
 		try {
 			const data = await api.getComments(contentType, contentId);
@@ -63,7 +59,11 @@ const CommentSection = ({ contentType, contentId }) => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [contentType, contentId, user]);
+
+	useEffect(() => {
+		fetchComments();
+	}, [fetchComments]);
 
 	const handleSubmit = async () => {
 		if (!newComment.trim() || !user) return;
@@ -71,7 +71,7 @@ const CommentSection = ({ contentType, contentId }) => {
 		setSubmitting(true);
 		try {
 			const commentPayload = {
-				contentId: Number(contentId),
+				contentId,
 				contentType,
 				userId: user.id,
 				userName: user.name || '匿名用户',

@@ -89,7 +89,11 @@ const Layout = () => {
 					{user ? (
 						<Dropdown menu={{ items: userMenuItems, onClick: handleUserMenuClick }} placement="bottomRight">
 							<div className="app-shell__user" role="button" tabIndex={0}>
-								<Avatar size={40} style={{ backgroundColor: '#1677ff' }}>
+								<Avatar
+									size={40}
+									src={user.avatar || undefined}
+									style={{ backgroundColor: '#1677ff' }}
+								>
 									{user.name?.charAt(0)?.toUpperCase() || 'U'}
 								</Avatar>
 								<div className="app-shell__user-meta">
